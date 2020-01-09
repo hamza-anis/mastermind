@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="FruitsMind" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/boutons_choix"
+        android:layout_gravity="bottom"
+        android:id="@+id/img_layout">
+        <ImageView
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:id="@+id/f1_img"
+            android:src="@drawable/banane"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:id="@+id/f2_img"
+            android:src="@drawable/banane"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:id="@+id/f3_img"
+            android:src="@drawable/banane"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:id="@+id/f4_img"
+            android:src="@drawable/banane"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/boutons_choix"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/f1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Choix 1" />
+
+        <Button
+            android:id="@+id/f2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Choix 2" />
+
+        <Button
+            android:id="@+id/f3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Choix 3" />
+
+        <Button
+            android:id="@+id/f4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Choix 4" />|
+    </LinearLayout>
+</LinearLayout>
