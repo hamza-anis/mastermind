@@ -1,28 +1,30 @@
 package com.example.mastermind.Jeu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Mastermind {
-    private ArrayList<Fruit> allFruits;
+    private HashMap<String,Fruit> allFruits;
     private ArrayList<Fruit> combinaison;
     public Mastermind() {
-        this.allFruits = new ArrayList<>();
+        this.allFruits = new HashMap<>();
+        initAllFruits();
     }
 
     private void initAllFruits() {
-        Fruit fraise = new Fruit("Fraise", false, false);
-        Fruit banane = new Fruit("Banane", false, true);
-        Fruit framboise = new Fruit("Framboise", false, false);
-        Fruit kiwi = new Fruit("Kiwi", false, true);
-        Fruit orange = new Fruit("Orange",false,true);
-        Fruit prune = new Fruit("Prune",true,false);
-        Fruit raisin = new Fruit("Raison",true,false);
-        Fruit citron = new Fruit("Citron",true,true);
-        this.allFruits.add(fraise);this.allFruits.add(banane);
-        this.allFruits.add(framboise);this.allFruits.add(kiwi);
-        this.allFruits.add(orange);this.allFruits.add(prune);
-        this.allFruits.add(raisin);this.allFruits.add(citron);
+        Fruit fraise = new Fruit("fraise", false, false);
+        Fruit banane = new Fruit("banane", false, true);
+        Fruit framboise = new Fruit("framboise", false, false);
+        Fruit kiwi = new Fruit("kiwi", false, true);
+        Fruit orange = new Fruit("orange",false,true);
+        Fruit prune = new Fruit("prune",true,false);
+        Fruit raisin = new Fruit("raisin",true,false);
+        Fruit citron = new Fruit("citron",true,true);
+        this.allFruits.put("fraise",fraise);this.allFruits.put("banane",banane);
+        this.allFruits.put("framboise",framboise);this.allFruits.put("kiwi",kiwi);
+        this.allFruits.put("orange",orange);this.allFruits.put("prune",prune);
+        this.allFruits.put("raisin",raisin);this.allFruits.put("citron",citron);
     }
 
     private void createSecretCombinaison() {
@@ -35,4 +37,15 @@ public class Mastermind {
             }
         }
     }
+
+    public HashMap<String,Fruit> getAllFruits() {
+        return this.allFruits;
+    }
+    public Fruit getAFruit(String f){
+        return this.allFruits.get(f);
+    }
+    public ArrayList<Fruit> getCombinaison() {
+        return this.combinaison;
+    }
+
 }
