@@ -15,17 +15,18 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.fViewHolder> {
     private ArrayList<Selection> historique;
     public static class fViewHolder extends RecyclerView.ViewHolder{
-        ImageView img1;
-        ImageView img2;
-        ImageView img3;
-        ImageView img4;
+        ImageView img1;ImageView h1;
+        ImageView img2;ImageView h2;
+        ImageView img3;ImageView h3;
+        ImageView img4;ImageView h4;
+
 
         public fViewHolder(@NonNull View itemView) {
             super(itemView);
-            img1 = itemView.findViewById(R.id.img_1);
-            img2 = itemView.findViewById(R.id.img_2);
-            img3 = itemView.findViewById(R.id.img_3);
-            img4 = itemView.findViewById(R.id.img_4);
+            img1 = itemView.findViewById(R.id.img_1);h1 = itemView.findViewById(R.id.hint1);
+            img2 = itemView.findViewById(R.id.img_2);h2 = itemView.findViewById(R.id.hint2);
+            img3 = itemView.findViewById(R.id.img_3);h3 = itemView.findViewById(R.id.hint3);
+            img4 = itemView.findViewById(R.id.img_4);h4 = itemView.findViewById(R.id.hint4);
         }
     }
     public Adapter(ArrayList<Selection> historique){
@@ -46,6 +47,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.fViewHolder> {
         holder.img2.setImageResource(current.getSelection().get(1).getDrawable());
         holder.img3.setImageResource(current.getSelection().get(2).getDrawable());
         holder.img4.setImageResource(current.getSelection().get(3).getDrawable());
+        holder.h1.setImageResource(current.getSelection().get(0).getStateDrawable());
+        holder.h2.setImageResource(current.getSelection().get(1).getStateDrawable());
+        holder.h3.setImageResource(current.getSelection().get(2).getStateDrawable());
+        holder.h4.setImageResource(current.getSelection().get(3).getStateDrawable());
     }
 
     @Override

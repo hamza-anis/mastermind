@@ -16,7 +16,5 @@ public class Selection {
     public ArrayList<Fruit> getSelection(){
         return this.selection;
     }
-    public Fruit getFruit(int i){
-        return this.selection.get(i);
-    }
+
 }

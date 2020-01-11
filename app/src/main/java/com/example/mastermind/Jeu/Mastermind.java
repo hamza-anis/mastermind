@@ -8,10 +8,11 @@ import java.util.Random;
 
 public class Mastermind {
     private HashMap<String,Fruit> allFruits;
-    private ArrayList<Fruit> combinaison;
+    private ArrayList<Fruit> secretcombinaison;
     public Mastermind() {
         this.allFruits = new HashMap<>();
         initAllFruits();
+        createSecretCombinaison();
     }
 
     private void initAllFruits() {
@@ -30,12 +31,13 @@ public class Mastermind {
     }
 
     private void createSecretCombinaison() {
-        this.combinaison = new ArrayList<>();
-        Random rd = new Random(this.allFruits.size()-1);
-        for (int i = 0; i < 4; i++){
-            Fruit f = this.allFruits.get(rd.nextInt());
-            if (! this.combinaison.contains(f)){
-                this.combinaison.add(f);
+        this.secretcombinaison = new ArrayList<>();
+        Random rd = new Random();
+
+        while (this.secretcombinaison.size() < 4){
+            Fruit f = fruitsToArrayList().get(rd.nextInt(8));
+            if (! this.secretcombinaison.contains(f)){
+                this.secretcombinaison.add(f);
             }
         }
     }
@@ -46,8 +48,16 @@ public class Mastermind {
     public Fruit getAFruit(String f){
         return this.allFruits.get(f);
     }
-    public ArrayList<Fruit> getCombinaison() {
-        return this.combinaison;
+    public ArrayList<Fruit> fruitsToArrayList(){
+        ArrayList<Fruit> res = new ArrayList<>();
+        for(Fruit f : this.allFruits.values()){
+            res.add(f);
+        }
+        return res;
     }
+    public ArrayList<Fruit> getSecretcombinaison() {
+        return this.secretcombinaison;
+    }
+
 
 }

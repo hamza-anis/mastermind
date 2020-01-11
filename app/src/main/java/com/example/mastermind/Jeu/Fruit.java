@@ -5,8 +5,9 @@ public class Fruit {
     private boolean gotSeeds;
     private int drawable;
     private boolean isPeelable;
-
+    private int state;
     public Fruit(int drawable,String nom, boolean gotSeeds, boolean isPeelable){
+        this.state = 0;
         this.nom = nom;
         this.isPeelable = isPeelable;
         this.gotSeeds = gotSeeds;
@@ -26,5 +27,13 @@ public class Fruit {
     }
     public int getDrawable(){
         return this.drawable;
+    }
+
+    public int getStateDrawable() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
