@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mastermind {
+    /*
+    Objet représentant le jeu.
+     */
     private HashMap<String,Fruit> allFruits;
     private ArrayList<Fruit> secretcombinaison;
     public Mastermind() {

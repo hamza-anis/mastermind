@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import android.content.DialogInterface;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Mastermind mastermind = new Mastermind();
     private ArrayList<Selection> historique;
     private int essais;
-    private boolean endgame;
+    private int indices;
+    private boolean win;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.essais = 1;
+        this.essais = 10;
+        this.indices = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ImageView i1 = findViewById(R.id.f1_img);
@@ -44,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         registerForContextMenu(i2);
         registerForContextMenu(i3);
         registerForContextMenu(i4);
-        secretCombinaison  = mastermind.getSecretcombinaison();
+        secretCombinaison = mastermind.getSecretcombinaison();
         printSecretCombinaison();
 
-        endgame = false;
+        this.win = false;
         historique = new ArrayList<>();
 
         Button b = findViewById(R.id.valide_button);
@@ -55,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 valideSelectedCombinaison(v);
+            }
+        });
+
+        Button indicesButton = findViewById(R.id.indices_button);
+        indicesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handlerIndice();
             }
         });
 
@@ -87,49 +98,51 @@ public class MainActivity extends AppCompatActivity {
 
     private void showNbEssais() {
         TextView t = findViewById(R.id.nb_essais);
-        t.setText("Essais : " + this.essais);
+        t.setText("Essais restants : " + (this.essais - 1));
     }
 
     public void valideSelectedCombinaison(View v) {
-
-
         try {
-            Selection s = new Selection(
-                    mastermind.getAFruit(findViewById(R.id.f1_img).getTag().toString()),
-                    mastermind.getAFruit(findViewById(R.id.f2_img).getTag().toString()),
-                    mastermind.getAFruit(findViewById(R.id.f3_img).getTag().toString()),
-                    mastermind.getAFruit(findViewById(R.id.f4_img).getTag().toString())
-            );
-            historique.add(s);
-            if (endgame){
-                System.out.println("Gagné.");
-            }
+            if (this.essais > 0) {
+                Selection s = new Selection(
+                        mastermind.getAFruit(findViewById(R.id.f1_img).getTag().toString()),
+                        mastermind.getAFruit(findViewById(R.id.f2_img).getTag().toString()),
+                        mastermind.getAFruit(findViewById(R.id.f3_img).getTag().toString()),
+                        mastermind.getAFruit(findViewById(R.id.f4_img).getTag().toString())
+                );
 
-            handlerCombinaison(s);
-            showNbEssais();
-            if (this.essais == 0) {
-                initRecycler();
+                if (s.isSelectionValid()) {
+                    historique.add(s);
+
+                    handlerCombinaison(s);
+                    showNbEssais();
+                    if (this.essais == 10 | this.indices > 0) {
+                        initRecycler();
+                    } else {
+                        adapter.notifyItemInserted(10 - this.essais);
+                    }
+                    this.essais--;
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Merci de selectionner des élements différents.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             } else {
-                adapter.notifyItemInserted(this.essais);
+                handlerEndgame();
+                System.out.println("Fin du jeu ");
             }
-            this.essais++;
-            System.out.println( "Essais : " + this.essais);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Toast toast = Toast.makeText(getApplicationContext(), "Merci de selectionner une combinaison complète!", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 
-    public void handlerCombinaison(Selection selection) {
-        int good = 0;
+    private void handlerCombinaison(Selection selection) {
+        int right_placement_n_fruit = 0;
         ArrayList<Fruit> s = selection.getSelection();
         for (Fruit f : s) {
             if (secretCombinaison.contains(f)) {
-                if (secretCombinaison.indexOf(f) == s.indexOf(f)){
-                    System.out.println(secretCombinaison.indexOf(f) +"   "+ selection.getSelection().indexOf(f));
+                if (secretCombinaison.indexOf(f) == s.indexOf(f)) {
                     f.setState(R.drawable.true_pos);
-                    good++;
+                    right_placement_n_fruit++;
                 } else {
                     f.setState(R.drawable.again);
                 }
@@ -137,14 +150,70 @@ public class MainActivity extends AppCompatActivity {
                 f.setState(R.drawable.false_pos);
             }
         }
-        if (good == 4) {
-            endgame = true;
+        if (right_placement_n_fruit == 4) {
+            this.win = true;
+            handlerEndgame();
         }
     }
 
-    public void printSecretCombinaison() {
+    private void handlerIndice() {
+        System.out.println(this.indices);
+        if ((this.indices == 0) && (this.essais > 2)) {
+            this.essais -= 2;
+            this.indices++;
+            showNbEssais();
+            TextView h1, h2, h3, h4;
+            h1 = findViewById(R.id.h1);
+            h2 = findViewById(R.id.h2);
+            h3 = findViewById(R.id.h3);
+            h4 = findViewById(R.id.h4);
+            h1.setText(String.valueOf(this.secretCombinaison.get(0).isGotSeeds()));
+            h2.setText(String.valueOf(this.secretCombinaison.get(1).isGotSeeds()));
+            h3.setText(String.valueOf(this.secretCombinaison.get(2).isGotSeeds()));
+            h4.setText(String.valueOf(this.secretCombinaison.get(3).isGotSeeds()));
+        } else if ((this.indices == 1) && (this.essais > 3)) {
+            this.indices++;
+            this.essais -= 3;
+            showNbEssais();
+            TextView h1, h2, h3, h4;
+            h1 = findViewById(R.id.h21);
+            h2 = findViewById(R.id.h22);
+            h3 = findViewById(R.id.h23);
+            h4 = findViewById(R.id.h24);
+            h1.setText(String.valueOf(this.secretCombinaison.get(0).isPeelable()));
+            h2.setText(String.valueOf(this.secretCombinaison.get(1).isPeelable()));
+            h3.setText(String.valueOf(this.secretCombinaison.get(2).isPeelable()));
+            h4.setText(String.valueOf(this.secretCombinaison.get(3).isPeelable()));
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Plus d'indices disponibles.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+    }
+
+    private void handlerEndgame() {
+        AlertDialog.Builder e = new AlertDialog.Builder(this);
+        e.setTitle("Fin du jeu ");
+        if(this.win){
+            e.setTitle("Bravo vous avez gagné. ");
+            e.setMessage("Score : " + this.essais);
+        }else{
+            e.setMessage("Dommage, perdu .. ");
+        }
+        e.setPositiveButton("Rejouer",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                recreate();
+            }
+        });
+        e.show();
+    }
+
+    private void printSecretCombinaison() {
+        /* pour les tests. */
         for (Fruit f : secretCombinaison) {
             System.out.println("Secret combinaison: " + f.getNom());
         }
     }
+
 }
