@@ -1,5 +1,7 @@
 package com.example.mastermind.Jeu;
 
+import com.example.mastermind.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -13,14 +15,14 @@ public class Mastermind {
     }
 
     private void initAllFruits() {
-        Fruit fraise = new Fruit("fraise", false, false);
-        Fruit banane = new Fruit("banane", false, true);
-        Fruit framboise = new Fruit("framboise", false, false);
-        Fruit kiwi = new Fruit("kiwi", false, true);
-        Fruit orange = new Fruit("orange",false,true);
-        Fruit prune = new Fruit("prune",true,false);
-        Fruit raisin = new Fruit("raisin",true,false);
-        Fruit citron = new Fruit("citron",true,true);
+        Fruit fraise = new Fruit(R.drawable.fraise,"fraise", false, false);
+        Fruit banane = new Fruit(R.drawable.banane,"banane", false, true);
+        Fruit framboise = new Fruit(R.drawable.framboise,"framboise", false, false);
+        Fruit kiwi = new Fruit(R.drawable.kiwi,"kiwi", false, true);
+        Fruit orange = new Fruit(R.drawable.orange,"orange",false,true);
+        Fruit prune = new Fruit(R.drawable.prune,"prune",true,false);
+        Fruit raisin = new Fruit(R.drawable.raisin,"raisin",true,false);
+        Fruit citron = new Fruit(R.drawable.citron,"citron",true,true);
         this.allFruits.put("fraise",fraise);this.allFruits.put("banane",banane);
         this.allFruits.put("framboise",framboise);this.allFruits.put("kiwi",kiwi);
         this.allFruits.put("orange",orange);this.allFruits.put("prune",prune);

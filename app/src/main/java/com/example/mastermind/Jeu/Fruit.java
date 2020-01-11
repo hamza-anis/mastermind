@@ -3,12 +3,14 @@ package com.example.mastermind.Jeu;
 public class Fruit {
     private String nom;
     private boolean gotSeeds;
+    private int drawable;
     private boolean isPeelable;
 
-    public Fruit(String nom, boolean gotSeeds, boolean isPeelable){
+    public Fruit(int drawable,String nom, boolean gotSeeds, boolean isPeelable){
         this.nom = nom;
         this.isPeelable = isPeelable;
         this.gotSeeds = gotSeeds;
+        this.drawable = drawable;
     }
 
     public String getNom() {
@@ -22,7 +24,7 @@ public class Fruit {
     public boolean isPeelable() {
         return isPeelable;
     }
-    public String getDrawable(){
-        return this.nom+".png";
+    public int getDrawable(){
+        return this.drawable;
     }
 }

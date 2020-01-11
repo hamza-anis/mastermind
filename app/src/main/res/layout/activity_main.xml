@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/title"
     android:layout_width="match_parent"
@@ -16,31 +16,35 @@
         android:padding="10dp"
         android:text="FruitsMind" />
 
-    <TextView
-        android:id="@+id/nb_essais"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nb_essais"
+        android:text="Nombre d'essais : "
+        android:layout_below="@id/title_text"/>
     <TextView
         android:id="@+id/text_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/nb_essais"
         android:text="ICI" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_id"
+        android:layout_above="@id/boutons_choix"
         android:scrollbars="vertical" />
 
 
     <LinearLayout
         android:id="@+id/boutons_choix"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -78,4 +82,4 @@
             android:text="ok" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
